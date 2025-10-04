@@ -22,6 +22,7 @@
     "tinacms": "^2.9.0"
   },
   "devDependencies": {
-    "@tinacms/cli": "^1.11.0"
+    "@tinacms/cli": "^1.11.0",
+    "wrangler": "^4.42.0"
   }
 }
