@@ -11,6 +11,9 @@ importers:
       '@astrojs/react':
         specifier: ^4.4.0
         version: 4.4.0(@types/node@24.6.2)(@types/react-dom@19.2.0(@types/react@19.2.0))(@types/react@19.2.0)(jiti@1.21.7)(lightningcss@1.30.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(yaml@2.8.1)
+      '@lucide/astro':
+        specifier: ^0.544.0
+        version: 0.544.0(astro@5.14.1(@types/node@24.6.2)(jiti@1.21.7)(lightningcss@1.30.1)(rollup@4.52.4)(typescript@5.9.3)(yaml@2.8.1))
       '@tailwindcss/vite':
         specifier: ^4.1.14
         version: 4.1.14(vite@6.3.6(@types/node@24.6.2)(jiti@1.21.7)(lightningcss@1.30.1)(yaml@2.8.1))
@@ -1317,6 +1320,11 @@ packages:
 
   '@lezer/lr@1.4.2':
     resolution: {integrity: sha512-pu0K1jCIdnQ12aWNaAVU5bzi7Bd1w54J3ECgANPmYLtQKP0HBj2cE/5coBD66MT10xbtIuUr7tg0Shbsvk0mDA==}
+
+  '@lucide/astro@0.544.0':
+    resolution: {integrity: sha512-A1OMIplo44RLQ5MefvXOMwHOnR1w/Dvk7q7W0LlKYwwV8pfBavU0nQecyb2rPkIt9dLTd4XfBUFRKCE+1r5gjA==}
+    peerDependencies:
+      astro: ^4 || ^5
 
   '@marijn/find-cluster-break@1.0.2':
     resolution: {integrity: sha512-l0h88YhZFyKdXIFNfSWpyjStDjGHwZ/U7iobcK1cQQD8sejsONdQtTVU+1wVN1PBw40PiiHB1vA5S7VTfQiP9g==}
@@ -7494,6 +7502,10 @@ snapshots:
   '@lezer/lr@1.4.2':
     dependencies:
       '@lezer/common': 1.2.3
+
+  '@lucide/astro@0.544.0(astro@5.14.1(@types/node@24.6.2)(jiti@1.21.7)(lightningcss@1.30.1)(rollup@4.52.4)(typescript@5.9.3)(yaml@2.8.1))':
+    dependencies:
+      astro: 5.14.1(@types/node@24.6.2)(jiti@1.21.7)(lightningcss@1.30.1)(rollup@4.52.4)(typescript@5.9.3)(yaml@2.8.1)
 
   '@marijn/find-cluster-break@1.0.2': {}
 

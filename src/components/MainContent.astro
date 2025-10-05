@@ -1,0 +1,44 @@
+---
+import About from "./About.astro";
+import Projects from "./Projects.astro";
+---
+
+<div id="main-content" class="transition-all duration-300">
+  <section id="home" class="my-5">
+    <About />
+    <Projects />
+  </section>
+
+  <section id="projects" class="my-5 hidden">
+    <Projects />
+  </section>
+
+  <section id="resume" class="my-5 hidden">
+    <h1 class="text-3xl font-bold mb-3">Resume 📄</h1>
+    <p class="text-zinc-400">This section contains your resume</p>
+  </section>
+
+  <section id="contact" class="my-5 hidden">
+    <h1 class="text-3xl font-bold mb-3">Contact 📞</h1>
+    <p class="text-zinc-400">Let's get in touch!</p>
+  </section>
+
+  <section id="blog" class="my-5 hidden">
+    <h1 class="text-3xl font-bold mb-3">Blog ✍️</h1>
+    <p class="text-zinc-400">Coming soon...</p>
+  </section>
+</div>
+
+<script is:inline>
+  if (typeof window !== "undefined") {
+    const all = document.querySelectorAll("#main-content > section");
+
+    const show = (id) => {
+      all.forEach((s) => s.classList.add("hidden"));
+      const el = document.getElementById(id);
+      if (el) el.classList.remove("hidden");
+    };
+
+    window.addEventListener("page-change", (e) => show(e.detail));
+  }
+</script>

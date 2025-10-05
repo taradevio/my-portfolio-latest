@@ -1,0 +1,32 @@
+{
+  "projects": [
+    {
+      "title": "Visit Wonogiri",
+      "link": "https://github.com/taradevio/visit-wonogiri",
+      "description": "A redesigned website of the official Wonogiri regency website, focusing on its accessibility to provide direct and simplified user experiences",
+      "stack": ["Astro", "Tailwind CSS"],
+      "slug": "/projects/visit-wonogiri/"
+    },
+    {
+      "title": "Order of The Wild: Lingo",
+      "link": "https://github.com/taradevio/rpg-game",
+      "description": "An English test game that is inspired by text RPG game mechanisms, aimed to combine education and entertainment to create a more engaging language learning",
+      "stack": ["HTML", "CSS", "Javascript"],
+      "slug": "/projects/rpg-game/"
+    },
+    {
+      "title": "Air Pollution",
+      "link": "https://github.com/taradevio/air-pollution-api",
+      "description": "A collaborative project leveraging a backend API to dynamically populate the frontend with real-time updates",
+      "stack": ["HTML", "CSS", "Javascript", "Leaflet js"],
+      "slug": "/projects/air-pollution"
+    },
+    {
+      "title": "Pet Trail",
+      "link": "https://github.com/taradevio/pet-trail",
+      "description": "A web project that helps users report lost and found pets, view their locations on an interactive map, and receive notification through email.",
+      "stack": ["Vue js", "Tailwind CSS", "Leaflet js"],
+      "slug": "/projects/pet-trail"
+    }
+  ]
+}

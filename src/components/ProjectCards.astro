@@ -1,0 +1,23 @@
+---
+import project from '../data/project.json';
+const projectContent = project.projects;
+---
+
+
+{projectContent.map(({title, description, stack, link}) =>
+    <div class="border-2 border-[#27272a] bg-[#18181b] rounded-2xl w-[350px] mx-auto md:mx-0 py-2 px-3 mb-5 md:mb-0">
+         <a href={link} target="_blank">
+            <div class="flex justify-between">
+            <h3 class="text-lg font-semibold text-[#fafafa]">{title}</h3>
+            <img src="/link.svg" alt="external link" />
+        </div>
+         </a>
+        <p class="my-3 text-[#a1a1aa]">{description}</p>
+        <div class="text-[#a1a1aa] inline-flex text-center mx-auto w-full gap-3 flex-wrap">
+            {stack.map((item) =>
+                <span class="border-1 border-[#27272a] py-1 px-2 rounded-lg">{item}</span>
+            )}
+        </div> 
+    </div>
+)}
+

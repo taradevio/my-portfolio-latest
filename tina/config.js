@@ -1,3 +1,4 @@
+import { AlertTriangle } from "@lucide/astro";
 import { defineConfig } from "tinacms";
 
 // Your hosting provider likely exposes this as an environment variable
@@ -46,6 +47,42 @@ export default defineConfig({
             name: "body",
             label: "Body",
             isBody: true,
+          },
+          {
+            type: "image",
+            name: "image",
+            label: "Image",
+          },
+          {
+            type: "string",
+            name: "alt",
+            label: "Alt Text",
+          },
+          {
+            type: "string",
+            name: "description",
+            label: "Description",
+          },
+          {
+            type: "datetime",
+            name: "date",
+            label: "Date",
+          },
+          {
+            type: "string",
+            name: "author",
+            label: "Author",
+          },
+          {
+            type: "string",
+            name: "tags",
+            label: "Tags",
+            list: true,
+          },
+          {
+            type: "string",
+            name: "caption",
+            label: "Caption",
           },
         ],
       },
