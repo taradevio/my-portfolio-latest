@@ -5,6 +5,7 @@ import {CustomMarkdown} from '../../components/CustomMarkdown'
 import client from '../../../tina/__generated__/client';
 import '../../styles/global.css'
 import MainBlogLayout from '../../layouts/MainBlogLayout.astro';
+import BlogFooter from '../../components/BlogFooter.astro';
 
 export async function getStaticPaths() {
   const resp = await client.queries.postConnection();
@@ -61,5 +62,6 @@ const { post } = Astro.props;
         >
       </div>
     </article>
+    <BlogFooter />
   </div>
 </MainBlogLayout>

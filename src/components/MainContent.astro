@@ -30,7 +30,7 @@ import Index from "../pages/blog/index.astro";
   </section>
 </div>
 
-<script is:inline>
+<!-- <script is:inline>
   if (typeof window !== "undefined") {
     const all = document.querySelectorAll("#main-content > section");
 
@@ -41,5 +41,72 @@ import Index from "../pages/blog/index.astro";
     };
 
     window.addEventListener("page-change", (e) => show(e.detail));
+  }
+</script> -->
+
+
+<!-- <script is:inline>
+  if (typeof window !== "undefined") {
+    const all = document.querySelectorAll("#main-content > section");
+
+    const show = (id) => {
+      all.forEach((s) => s.classList.add("hidden"));
+      const el = document.querySelector(`#main-content > section#${CSS.escape(id)}`);
+      if (el) {
+        el.classList.remove("hidden");
+        history.replaceState(null, "", `#${id}`); // sinkronkan URL
+      }
+    };
+
+    // terima event dari nav/footer SPA
+    window.addEventListener("page-change", (e) => show(e.detail));
+
+    // 1) saat pertama kali halaman home kebuka
+    document.addEventListener("DOMContentLoaded", () => {
+      const first = location.hash.slice(1) || "home";
+      show(first);
+    });
+
+    // 2) kalau hash berubah (mis. datang dari /#blog, atau back/forward)
+    window.addEventListener("hashchange", () => {
+      const h = location.hash.slice(1);
+      if (h) show(h);
+    });
+  }
+</script> -->
+
+
+<script is:inline>
+  if (typeof window !== "undefined") {
+    const all = document.querySelectorAll("#main-content > section");
+
+    const show = (id) => {
+      all.forEach((s) => s.classList.add("hidden"));
+      const el = document.querySelector(`#main-content > section#${CSS.escape(id)}`);
+      if (el) {
+        el.classList.remove("hidden");
+        if (id === "home") {
+          // biar gak muncul #home
+          history.replaceState(null, "", "/");
+        } else {
+          history.replaceState(null, "", `#${id}`);
+        }
+      }
+    };
+
+    // terima event dari nav/footer SPA
+    window.addEventListener("page-change", (e) => show(e.detail));
+
+    // saat pertama kali halaman home kebuka
+    document.addEventListener("DOMContentLoaded", () => {
+      const first = location.hash.slice(1) || "home";
+      show(first);
+    });
+
+    // kalau hash berubah (mis. datang dari /#blog, atau back/forward)
+    window.addEventListener("hashchange", () => {
+      const h = location.hash.slice(1);
+      if (h) show(h);
+    });
   }
 </script>
