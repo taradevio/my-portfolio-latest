@@ -1,4 +1,4 @@
-<!-- ---
+---
 import client from "../../tina/__generated__/client";
 
 const resp = await client.queries.postConnection();
@@ -26,9 +26,9 @@ const toSlug = (n: (typeof posts)[number]) =>
           )}
           <h2 class="text-2xl md:text-3xl pt-3 font-semibold">{p.title}</h2>
           <p class="truncate">{p.description}</p>
-          {p.datetime && (
+          {p.date && (
             <time class="text-sm block text-right mt-2">
-              {new Date(p.datetime).toLocaleDateString()}
+              {new Date(p.date).toLocaleDateString()}
             </time>
           )}
           <a href={`/blog/${slug}`} class="block">
@@ -40,4 +40,4 @@ const toSlug = (n: (typeof posts)[number]) =>
       );
     })
   }
-</div> -->
+</div>

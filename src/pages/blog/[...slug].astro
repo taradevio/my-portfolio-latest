@@ -1,0 +1,65 @@
+---
+// import { Tina } from "tinacms";
+import {CustomMarkdown} from '../../components/CustomMarkdown'
+// import BlogFooter from "../../components/BlogFooter.astro";
+import client from '../../../tina/__generated__/client';
+import '../../styles/global.css'
+import MainBlogLayout from '../../layouts/MainBlogLayout.astro';
+
+export async function getStaticPaths() {
+  const resp = await client.queries.postConnection();
+  const posts = (resp.data.postConnection?.edges ?? [])
+    .map((e) => e?.node ?? null)
+    .filter((n) => n);
+
+  return posts.map((post) => ({
+    params: { slug: post?._sys.filename },
+    props: { post },
+  }));
+}
+
+
+
+const { post } = Astro.props;
+---
+
+<MainBlogLayout title={post?.title}>
+  <div class="ps-3 pe-3 pt-3 lg:ps-0 lg:pe-0">
+    <article class="mx-auto">
+      <div class="mx-auto">
+        <figure class="text-center">
+          <img
+            src={post?.image}
+            alt={post?.alt}
+            class="w-full object-cover aspect-square lg:aspect-video"
+          />
+          {
+            post?.caption && (
+              <figcaption class="mt-2 text-sm text-gray-500">
+                {post.caption}
+              </figcaption>
+            )
+          }
+        </figure>
+      </div>
+      <h1 class="text-3xl font-bold pt-3">{post?.title}</h1>
+
+      <div class="text-justify py-3">
+        <CustomMarkdown content={post?.body}/>
+      </div>
+      <div class="text-end font-light">
+        <time
+          >{
+            post?.date &&
+              new Date(post.date).toLocaleDateString("en-US", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })
+          }</time
+        >
+      </div>
+    </article>
+  </div>
+</MainBlogLayout>
