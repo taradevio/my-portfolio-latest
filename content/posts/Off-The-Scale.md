@@ -16,15 +16,3 @@ caption: Photo by Alpha Coder
 Cliche as it may sound, but trust me. It works
 
 ![Kyoto](/pexels-ayyeee-ayyeee-434363205-33840855.jpg "Photo by Pexels")
-
-```javascript
-function convertToTitleCase(str) {
-  if (!str) {
-      return ""
-  }
-  return str.toLowerCase().replace(/\b\w/g, s => s.toUpperCase());
-}
-
-console.log(convertToTitleCase('welcome to my article'));
-console.log(convertToTitleCase('THE avengers'));
-```

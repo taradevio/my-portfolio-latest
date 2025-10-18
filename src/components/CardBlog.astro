@@ -21,13 +21,13 @@ const toSlug = (n: (typeof posts)[number]) =>
             <img
               src={p.image}
               alt={p.alt ?? p.title}
-              class="w-full aspect-square object-cover rounded"
+              class="w-full aspect-square lg:aspect-video object-cover rounded"
             />
           )}
-          <h2 class="text-2xl md:text-3xl pt-3 font-semibold">{p.title}</h2>
-          <p class="truncate">{p.description}</p>
+          <h2 class="text-2xl pt-3 font-semibold">{p.title}</h2>
+          <p class="truncate italic font-light">{p.description}</p>
           {p.date && (
-            <time class="text-sm block text-right mt-2">
+            <time class="text-sm block text-right font-semibold my-2">
               {new Date(p.date).toLocaleDateString()}
             </time>
           )}
