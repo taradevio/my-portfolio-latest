@@ -7,7 +7,7 @@ export function CustomMarkdown({ content }: { content: any }) {
       components={{
         img: (props: any) => (
           <figure className="my-4">
-            <div className="">
+            <div className="w-full lg:w-2xl lg:mx-auto">
               <img src={props.url} alt={props.alt} className="mx-auto" />
             </div>
             {props.caption && (
