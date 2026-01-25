@@ -1,10 +1,16 @@
 ---
 import client from "../../tina/__generated__/client";
 
-const resp = await client.queries.postConnection();
+const [resp, globalResp] = await Promise.all([
+  client.queries.postConnection(),
+  client.queries.global({ relativePath: "index.md" }),
+]);
+
 const posts = (resp.data.postConnection?.edges ?? [])
   .map((e) => e?.node ?? null)
   .filter((n): n is NonNullable<typeof n> => n !== null);
+
+const globalData = globalResp.data.global;
 
 // kalau kamu pakai subfolder di content/blog, pakai breadcrumbs:
 const toSlug = (n: (typeof posts)[number]) =>
@@ -27,11 +33,15 @@ const formatDate = (dateStr: string) => {
         style="text-decoration: none; color: inherit; display: block;"
       >
         <div class="tweet-card-header">
-          <img src="/user-profile.jpg" alt="Avatar" class="tweet-avatar" />
+          <img
+            src={globalData.profilePicture}
+            alt="Avatar"
+            class="tweet-avatar"
+          />
           <div class="tweet-content">
             <div class="tweet-author-row">
-              <span class="tweet-author-name">Nanda Kresnatara</span>
-              <span class="tweet-author-handle">@taradevio</span>
+              <span class="tweet-author-name">{globalData.name}</span>
+              <span class="tweet-author-handle">{globalData.handle}</span>
               {p.date && <span class="tweet-date">{formatDate(p.date)}</span>}
             </div>
 

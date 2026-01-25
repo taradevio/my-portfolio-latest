@@ -2,52 +2,35 @@
 import client from "../../tina/__generated__/client";
 
 // Fetch counts dynamically from Tina CMS
-const [projectResp, postResp, experienceResp] = await Promise.all([
+const [projectResp, postResp, experienceResp, globalResp] = await Promise.all([
   client.queries.projectConnection(),
   client.queries.postConnection(),
   (client.queries as any).experienceConnection(),
+  client.queries.global({ relativePath: "index.md" }),
 ]);
 
 const projectCount = projectResp.data.projectConnection?.totalCount ?? 0;
 const blogCount = postResp.data.postConnection?.totalCount ?? 0;
 const experienceCount =
   experienceResp.data.experienceConnection?.totalCount ?? 0;
+import ThemeSwitcher from "./ThemeSwitcher.astro";
+
+const globalData = globalResp.data.global;
 ---
 
 <div class="twitter-profile-info">
   <div class="twitter-profile-header">
     <div>
-      <h1 class="twitter-display-name">Nanda Kresnatara</h1>
-      <p class="twitter-handle">@taradevio</p>
+      <h1 class="twitter-display-name">{globalData.name}</h1>
+      <p class="twitter-handle">{globalData.handle}</p>
     </div>
-    <button
-      class="theme-toggle desktop-only"
-      id="theme-toggle"
-      aria-label="Toggle theme"
-    >
-      <svg
-        class="sun-icon"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"
-        ></path>
-      </svg>
-      <svg
-        class="moon-icon"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"
-        ></path>
-      </svg>
-    </button>
+    <div class="desktop-only">
+      <ThemeSwitcher />
+    </div>
   </div>
 
   <p class="twitter-bio">
-    Full-stack developer with a sprinkle of AI engineering
+    {globalData.bio}
   </p>
 
   <div class="twitter-meta">
@@ -57,10 +40,10 @@ const experienceCount =
           d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
         ></path>
       </svg>
-      Indonesia
+      {globalData.location}
     </span>
     <a
-      href="https://github.com/taradevio"
+      href={globalData.github}
       target="_blank"
       class="twitter-meta-item"
       style="color: var(--twitter-blue);"
@@ -92,47 +75,6 @@ const experienceCount =
 
 <script>
   import { gsap } from "gsap";
-
-  // Theme Toggle Script
-  (function () {
-    const toggle = document.getElementById("theme-toggle");
-    const html = document.documentElement;
-
-    // Get saved theme or system preference
-    const getPreferredTheme = () => {
-      const saved = localStorage.getItem("theme");
-      if (saved) return saved;
-      return window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
-    };
-
-    // Apply theme
-    const applyTheme = (theme: string) => {
-      html.setAttribute("data-theme", theme);
-      localStorage.setItem("theme", theme);
-    };
-
-    // Initialize
-    applyTheme(getPreferredTheme());
-
-    // Toggle handler
-    if (toggle) {
-      toggle.addEventListener("click", () => {
-        const current = html.getAttribute("data-theme");
-        applyTheme(current === "dark" ? "light" : "dark");
-      });
-    }
-
-    // Listen for system theme changes
-    window
-      .matchMedia("(prefers-color-scheme: dark)")
-      .addEventListener("change", (e) => {
-        if (!localStorage.getItem("theme")) {
-          applyTheme(e.matches ? "dark" : "light");
-        }
-      });
-  })();
 
   // Bocchi Panic Logic
   (function () {

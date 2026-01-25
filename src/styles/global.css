@@ -4,57 +4,172 @@
    TWITTER/X PROFILE DESIGN SYSTEM
    ======================================== */
 
-/* CSS Custom Properties - Theme Variables */
-:root {
-  /* Bocchi the Rock! / Kessoku Band Palette */
-  --kessoku-pink: #f9c0d4; /* Bocchi */
-  --kessoku-yellow: #f9e48b; /* Nijika */
-  --kessoku-blue: #9fd3f4; /* Ryo */
-  --kessoku-red: #f77b7b; /* Kita */
+/* ========================================
+   THEME SYSTEM (Inspired by daisyUI)
+   ======================================== */
 
-  /* Light Theme (Warmer Studio) */
-  --bg-primary: #fdfdfb;
-  --bg-primary-rgb: 253, 253, 251;
-  --bg-secondary: #f4f4f2;
-  --bg-tertiary: #ebebe9;
-  --bg-hover: rgba(0, 0, 0, 0.04);
-  --bg-card-hover: rgba(0, 0, 0, 0.02);
-
-  --text-primary: #0f1419;
-  --text-secondary: #536471;
-  --text-tertiary: #536471;
-
-  --border-color: #eff3f4;
-  --border-color-strong: #cfd9de;
-
-  --avatar-border: #ffffff;
-  --link-color: var(--kessoku-pink);
-
-  /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+:root,
+[data-theme="bocchi"] {
+  --p: #f9c0d4; /* Primary (Bocchi Pink) */
+  --s: #fce4ec; /* Secondary */
+  --a: #d1829d; /* Accent */
+  --n: #536471; /* Neutral */
+  --b1: #fff9fb; /* Base 100 */
+  --b2: #ffffff; /* Base 200 (Main Container) */
+  --bc: #1a1a1b; /* Base Content (Text) */
+  --sc: #536471; /* Secondary Content */
+  --border: #f1f3f4;
+  --hover: rgba(249, 192, 212, 0.1);
+  --mesh-1: rgba(249, 192, 212, 0.15);
+  --mesh-2: rgba(249, 228, 139, 0.12);
+  --mesh-3: rgba(159, 211, 244, 0.12);
+  --mesh-4: rgba(247, 123, 123, 0.1);
+  --tag-bg: rgba(249, 192, 212, 0.2);
+  --tag-text: #d1829d;
 }
 
-/* Dark Theme (Starry Night) */
-[data-theme="dark"] {
-  --bg-primary: #141414;
-  --bg-primary-rgb: 20, 20, 20;
-  --bg-secondary: #1a1a1a;
-  --bg-tertiary: #222222;
-  --bg-hover: rgba(255, 255, 255, 0.04);
-  --bg-card-hover: rgba(255, 255, 255, 0.02);
+[data-theme="nijika"] {
+  --p: #f9e48b;
+  --s: #fffbf0;
+  --a: #b4a044;
+  --n: #536471;
+  --b1: #fffdf5;
+  --b2: #ffffff;
+  --bc: #1c1917;
+  --sc: #536471;
+  --border: #f2f2f2;
+  --hover: rgba(249, 228, 139, 0.1);
+  --mesh-1: rgba(249, 228, 139, 0.15);
+  --mesh-2: rgba(249, 192, 212, 0.1);
+  --mesh-3: rgba(159, 211, 244, 0.1);
+  --mesh-4: rgba(247, 123, 123, 0.1);
+  --tag-bg: rgba(249, 228, 139, 0.2);
+  --tag-text: #856a00;
+}
 
-  --text-primary: #e7e9ea;
-  --text-secondary: #71767b;
-  --text-tertiary: #71767b;
+[data-theme="ryo"] {
+  --p: #9fd3f4;
+  --s: #edf7ff;
+  --a: #5a8ea1;
+  --n: #536471;
+  --b1: #f5f9ff;
+  --b2: #ffffff;
+  --bc: #0f172a;
+  --sc: #536471;
+  --border: #e2e8f0;
+  --hover: rgba(159, 211, 244, 0.1);
+  --mesh-1: rgba(159, 211, 244, 0.15);
+  --mesh-2: rgba(249, 192, 212, 0.1);
+  --mesh-3: rgba(249, 228, 139, 0.1);
+  --mesh-4: rgba(247, 123, 123, 0.1);
+  --tag-bg: rgba(159, 211, 244, 0.2);
+  --tag-text: #2b6a8f;
+}
 
-  --border-color: #2f3336;
-  --border-color-strong: #3e4144;
+[data-theme="kita"] {
+  --p: #f77b7b;
+  --s: #fff5f5;
+  --a: #a14b4b;
+  --n: #536471;
+  --b1: #fff8f8;
+  --b2: #ffffff;
+  --bc: #2d1616;
+  --sc: #536471;
+  --border: #fce8e8;
+  --hover: rgba(247, 123, 123, 0.1);
+  --mesh-1: rgba(247, 123, 123, 0.15);
+  --mesh-2: rgba(249, 192, 212, 0.1);
+  --mesh-3: rgba(249, 228, 139, 0.1);
+  --mesh-4: rgba(159, 211, 244, 0.1);
+  --tag-bg: rgba(247, 123, 123, 0.2);
+  --tag-text: #8a2b2b;
+}
 
-  --avatar-border: #141414;
+[data-theme="dim"] {
+  --p: #1d9bf0;
+  --s: #1e2732;
+  --a: #1d9bf0;
+  --n: #8b98a5;
+  --b1: #15202b;
+  --b2: #15202b;
+  --bc: #ffffff;
+  --sc: #8b98a5;
+  --border: #38444d;
+  --hover: rgba(255, 255, 255, 0.03);
+  --mesh-1: #15202b;
+  --mesh-2: #15202b;
+  --mesh-3: #15202b;
+  --mesh-4: #15202b;
+  --tag-bg: rgba(29, 155, 240, 0.15);
+  --tag-text: #1d9bf0;
+}
 
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+[data-theme="lights-out"] {
+  --p: #ffffff; /* pure white primary for pitch black background */
+  --s: #16181c;
+  --a: #d6d9db;
+  --n: #71767b;
+  --b1: #000000;
+  --b2: #000000;
+  --bc: #ffffff; /* force pure white text */
+  --sc: #71767b;
+  --border: #2f3336;
+  --hover: rgba(255, 255, 255, 0.05);
+  --mesh-1: #000000;
+  --mesh-2: #000000;
+  --mesh-3: #000000;
+  --mesh-4: #000000;
+  --tag-bg: rgba(113, 118, 123, 0.2);
+  --tag-text: #e7e9ea;
+}
+
+[data-theme="emerald"] {
+  --p: #059669; /* Darker Emerald for text contrast */
+  --s: #34d399;
+  --a: #ea5234;
+  --n: #333c4d;
+  --b1: #ffffff;
+  --b2: #ffffff;
+  --bc: #1f2937;
+  --sc: #4b5563;
+  --border: #e5e7eb;
+  --hover: rgba(5, 150, 105, 0.08);
+  --mesh-1: rgba(16, 185, 129, 0.08);
+  --mesh-2: rgba(52, 211, 153, 0.05);
+  --mesh-3: #ffffff;
+  --mesh-4: #ffffff;
+  --tag-bg: rgba(5, 150, 105, 0.1);
+  --tag-text: #065f46;
+}
+
+/* Map standardized variables to legacy/component variables */
+:root {
+  --bg-primary: var(--b1);
+  --bg-primary-rgb: 255, 255, 255; /* Note: manual RGB mapping if needed */
+  --bg-secondary: var(--b2);
+  --bg-tertiary: var(--s);
+  --bg-hover: var(--hover);
+  --bg-card-hover: var(--hover);
+
+  --text-primary: var(--bc);
+  --text-secondary: var(--sc);
+  --text-tertiary: var(--sc);
+
+  --border-color: var(--border);
+  --border-color-strong: var(--border);
+
+  --avatar-border: var(--b2);
+  --link-color: var(--p);
+  --kessoku-pink: var(--p); /* Compatibility */
+
+  --body-bg:
+    radial-gradient(at 0% 0%, var(--mesh-1) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, var(--mesh-2) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, var(--mesh-3) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, var(--mesh-4) 0px, transparent 50%), var(--b1);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* ========================================
@@ -67,7 +182,7 @@
 
 html {
   scroll-behavior: initial;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .gsap-reveal {
@@ -79,12 +194,13 @@ body {
   font-family:
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
     sans-serif;
-  background-color: var(--bg-primary);
+  background: var(--body-bg);
+  background-attachment: fixed;
   color: var(--text-primary);
   margin: 0;
   padding: 0;
   transition:
-    background-color 0.2s ease,
+    background 0.3s ease,
     color 0.2s ease;
   min-height: 100vh;
 }
@@ -110,7 +226,7 @@ a:hover {
   border-left: 1px solid var(--border-color);
   border-right: 1px solid var(--border-color);
   min-height: 100vh;
-  background-color: var(--bg-primary);
+  background-color: var(--bg-secondary); /* Solid White in Light mode */
 }
 
 @media (max-width: 640px) {
@@ -486,9 +602,9 @@ a:hover {
   display: inline-block;
   padding: 4px 12px;
   font-size: 13px;
-  font-weight: 500;
-  color: var(--kessoku-pink);
-  background-color: rgba(249, 192, 212, 0.1);
+  font-weight: 600; /* Increased weight for clarity */
+  color: var(--tag-text);
+  background-color: var(--tag-bg);
   border-radius: 9999px;
   transition: background-color 0.2s ease;
 }
@@ -585,7 +701,32 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    backdrop-filter: blur(12px);
+    background-color: rgba(
+      var(--bg-primary-rgb),
+      0.9
+    ); /* Slightly more opaque for contrast */
+    border-bottom: 1px solid var(--border-color);
   }
+}
+
+.mobile-persistent-identity {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.mobile-nanda-text,
+.mobile-header-title {
+  color: var(--bc) !important;
+}
+
+/* Force black for identity in lights-out */
+[data-theme="lights-out"] .mobile-guitar-icon,
+[data-theme="lights-out"] .mobile-nanda-text {
+  color: #000000 !important;
 }
 
 .mobile-header-title {
@@ -624,6 +765,23 @@ a:hover {
   display: none !important;
 }
 
+.desktop-only {
+  display: flex !important;
+}
+
+.mobile-only {
+  display: none !important;
+}
+
+@media (max-width: 640px) {
+  .desktop-only {
+    display: none !important;
+  }
+  .mobile-only {
+    display: flex !important;
+  }
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -634,6 +792,38 @@ a:hover {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* Mobile Header Specifics */
+.mobile-persistent-identity {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.mobile-guitar-icon {
+  color: var(--p);
+  filter: drop-shadow(0 0 8px var(--tag-bg));
+}
+
+.mobile-nanda-text {
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.mobile-header-info {
+  flex: 1;
+  margin-left: 12px;
+  padding-left: 12px;
+  border-left: 1px solid var(--border-color);
+  min-width: 0;
+}
+
+.mobile-theme-wrapper {
+  margin-left: auto;
 }
 
 /* Smooth transitions for theme changes */

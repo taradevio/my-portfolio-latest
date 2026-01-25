@@ -1,0 +1,279 @@
+---
+import { Palette } from "@lucide/astro";
+const themes = [
+  {
+    name: "bocchi",
+    label: "Bocchi",
+    p: "#f9c0d4",
+    s: "#fce4ec",
+    a: "#d1829d",
+    n: "#1a1a1b",
+  },
+  {
+    name: "nijika",
+    label: "Nijika",
+    p: "#f9e48b",
+    s: "#fffbf0",
+    a: "#b4a044",
+    n: "#1c1917",
+  },
+  {
+    name: "ryo",
+    label: "Ryo",
+    p: "#9fd3f4",
+    s: "#edf7ff",
+    a: "#5a8ea1",
+    n: "#0f172a",
+  },
+  {
+    name: "kita",
+    label: "Kita",
+    p: "#f77b7b",
+    s: "#fff5f5",
+    a: "#a14b4b",
+    n: "#2d1616",
+  },
+  {
+    name: "dim",
+    label: "Dim",
+    p: "#1d9bf0",
+    s: "#15202b",
+    a: "#1d9bf0",
+    n: "#ffffff",
+  },
+  {
+    name: "lights-out",
+    label: "Lights Out",
+    p: "#d6d9db",
+    s: "#000000",
+    a: "#d6d9db",
+    n: "#e7e9ea",
+  },
+  {
+    name: "emerald",
+    label: "Emerald",
+    p: "#66cc8a",
+    s: "#ffffff",
+    a: "#ea5234",
+    n: "#333c4d",
+  },
+];
+---
+
+<div class="theme-selector-container">
+  <button class="theme-trigger" id="theme-trigger" aria-label="Select theme">
+    <Palette size={20} class="theme-icon" />
+    <svg viewBox="0 0 24 24" class="chevron-icon">
+      <path d="M7 10l5 5 5-5H7z" fill="currentColor"></path>
+    </svg>
+  </button>
+
+  <div class="theme-dropdown" id="theme-dropdown">
+    <div class="theme-list">
+      {
+        themes.map((theme) => (
+          <button class="theme-item" data-theme-id={theme.name}>
+            <div class="theme-preview" style={`background-color: ${theme.s};`}>
+              <div class="preview-palette">
+                <div
+                  class="palette-color"
+                  style={`background-color: ${theme.p};`}
+                />
+                <div
+                  class="palette-color"
+                  style={`background-color: ${theme.s};`}
+                />
+                <div
+                  class="palette-color"
+                  style={`background-color: ${theme.a};`}
+                />
+                <div
+                  class="palette-color"
+                  style={`background-color: ${theme.n};`}
+                />
+              </div>
+              <span class="theme-name">{theme.label}</span>
+            </div>
+          </button>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style>
+  .theme-selector-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  .theme-trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 9999px;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .theme-trigger:hover {
+    background-color: var(--bg-hover);
+  }
+
+  .theme-icon {
+    color: var(--p);
+    transition: transform 0.3s ease;
+  }
+
+  .theme-trigger:hover .theme-icon {
+    transform: rotate(15deg);
+  }
+
+  .chevron-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .theme-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 200px;
+    max-height: 350px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: var(--shadow-md);
+    overflow-y: auto;
+    z-index: 100;
+    display: none;
+    padding: 8px;
+  }
+
+  .theme-dropdown.show {
+    display: block;
+    animation: slideDown 0.2s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .theme-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .theme-item {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 4px;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+
+  .theme-item:active {
+    transform: scale(0.98);
+  }
+
+  .theme-preview {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+    border-radius: 8px;
+    width: 100%;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+  }
+
+  .theme-item:hover .theme-preview {
+    border-color: var(--border-color-strong);
+  }
+
+  .preview-palette {
+    display: flex;
+    width: 40px;
+    height: 18px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .palette-color {
+    flex: 1;
+    height: 100%;
+  }
+
+  .theme-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a1a1b; /* Force contrast in the list */
+    text-transform: capitalize;
+  }
+
+  /* Style based on the theme being previewed */
+  .theme-item[data-theme-id="dim"] .theme-name,
+  .theme-item[data-theme-id="lights-out"] .theme-name {
+    color: #ffffff;
+  }
+</style>
+
+<script>
+  function initThemeSwitcher() {
+    const trigger = document.getElementById("theme-trigger");
+    const dropdown = document.getElementById("theme-dropdown");
+    const items = document.querySelectorAll(".theme-item");
+    const html = document.documentElement;
+
+    // Toggle dropdown
+    trigger?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      dropdown?.classList.toggle("show");
+    });
+
+    // Close on click outside
+    document.addEventListener("click", () => {
+      dropdown?.classList.remove("show");
+    });
+
+    // Theme switching
+    items.forEach((item) => {
+      item.addEventListener("click", () => {
+        const theme = item.getAttribute("data-theme-id");
+        if (theme) {
+          html.setAttribute("data-theme", theme);
+          localStorage.setItem("theme", theme);
+
+          // Re-trigger global styles if needed
+          window.dispatchEvent(
+            new CustomEvent("theme-changed", { detail: theme }),
+          );
+        }
+      });
+    });
+
+    // Set initial active state visual if needed
+    const currentTheme = localStorage.getItem("theme") || "bocchi";
+    html.setAttribute("data-theme", currentTheme);
+  }
+
+  // Handle both initial load and view transitions
+  initThemeSwitcher();
+  document.addEventListener("astro:after-swap", initThemeSwitcher);
+</script>

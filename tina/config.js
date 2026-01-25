@@ -193,6 +193,53 @@ export default defineConfig({
           },
         ],
       },
+      {
+        name: "global",
+        label: "Global Settings",
+        path: "content/global",
+        format: "md",
+        ui: {
+          global: true,
+        },
+        fields: [
+          {
+            type: "string",
+            name: "name",
+            label: "Display Name",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "handle",
+            label: "Twitter Handle",
+            required: true,
+          },
+          {
+            type: "image",
+            name: "profilePicture",
+            label: "Profile Picture",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "bio",
+            label: "Bio",
+            ui: {
+              component: "textarea",
+            },
+          },
+          {
+            type: "string",
+            name: "location",
+            label: "Location",
+          },
+          {
+            type: "string",
+            name: "github",
+            label: "GitHub URL",
+          },
+        ],
+      },
     ],
   },
 });

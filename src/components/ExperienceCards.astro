@@ -2,7 +2,11 @@
 import client from "../../tina/__generated__/client";
 import { CustomMarkdown } from "./CustomMarkdown";
 
-const resp = await (client.queries as any).experienceConnection();
+const [resp, globalResp] = await Promise.all([
+  (client.queries as any).experienceConnection(),
+  client.queries.global({ relativePath: "index.md" }),
+]);
+
 const experiences = (resp.data.experienceConnection?.edges ?? [])
   .map((e: any) => e?.node ?? null)
   .filter((n: any): n is NonNullable<typeof n> => n !== null)
@@ -10,6 +14,8 @@ const experiences = (resp.data.experienceConnection?.edges ?? [])
     (a: any, b: any) =>
       new Date(b.startDate).getTime() - new Date(a.startDate).getTime(),
   );
+
+const globalData = globalResp.data.global;
 
 // Format date range helper
 const formatDateRange = (
@@ -40,11 +46,15 @@ const formatDateRange = (
   experiences.map((exp: any) => (
     <div class="tweet-card">
       <div class="tweet-card-header">
-        <img src="/user-profile.jpg" alt="Avatar" class="tweet-avatar" />
+        <img
+          src={globalData.profilePicture}
+          alt="Avatar"
+          class="tweet-avatar"
+        />
         <div class="tweet-content">
           <div class="tweet-author-row">
-            <span class="tweet-author-name">Nanda Kresnatara</span>
-            <span class="tweet-author-handle">@taradevio</span>
+            <span class="tweet-author-name">{globalData.name}</span>
+            <span class="tweet-author-handle">{globalData.handle}</span>
             <span class="tweet-date">
               {formatDateRange(exp.startDate, exp.endDate, exp.isCurrent)}
             </span>

@@ -1,7 +1,11 @@
 ---
 import client from "../../tina/__generated__/client";
 
-const resp = await client.queries.projectConnection();
+const [resp, globalResp] = await Promise.all([
+  client.queries.projectConnection(),
+  client.queries.global({ relativePath: "index.md" }),
+]);
+
 const projectContent = (resp.data.projectConnection?.edges ?? [])
   .map((e) => {
     const node = e?.node;
@@ -15,6 +19,8 @@ const projectContent = (resp.data.projectConnection?.edges ?? [])
     };
   })
   .filter((n): n is NonNullable<typeof n> => n !== null);
+
+const globalData = globalResp.data.global;
 
 // Format date helper
 const formatDate = () => {
@@ -31,11 +37,15 @@ const formatDate = () => {
       style="text-decoration: none; color: inherit; display: block;"
     >
       <div class="tweet-card-header">
-        <img src="/user-profile.jpg" alt="Avatar" class="tweet-avatar" />
+        <img
+          src={globalData.profilePicture}
+          alt="Avatar"
+          class="tweet-avatar"
+        />
         <div class="tweet-content">
           <div class="tweet-author-row">
-            <span class="tweet-author-name">Nanda Kresnatara</span>
-            <span class="tweet-author-handle">@taradevio</span>
+            <span class="tweet-author-name">{globalData.name}</span>
+            <span class="tweet-author-handle">{globalData.handle}</span>
             <span class="tweet-date">{formatDate()}</span>
           </div>
 

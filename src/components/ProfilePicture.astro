@@ -1,5 +1,7 @@
 ---
-
+import client from "../../tina/__generated__/client";
+const globalResp = await client.queries.global({ relativePath: "index.md" });
+const profilePicture = globalResp.data.global.profilePicture;
 ---
 
-<img src="/profile-picture.jpg" alt="Profile picture" class="twitter-avatar" />
+<img src={profilePicture} alt="Profile picture" class="twitter-avatar" />
