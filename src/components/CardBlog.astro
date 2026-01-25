@@ -9,35 +9,60 @@ const posts = (resp.data.postConnection?.edges ?? [])
 // kalau kamu pakai subfolder di content/blog, pakai breadcrumbs:
 const toSlug = (n: (typeof posts)[number]) =>
   n._sys.breadcrumbs?.length ? n._sys.breadcrumbs.join("/") : n._sys.filename;
+
+// Format date helper
+const formatDate = (dateStr: string) => {
+  const date = new Date(dateStr);
+  return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+};
 ---
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-  {
-    posts.map((p) => {
-      const slug = toSlug(p);
-      return (
-        <div class="">
-          {p.image && (
-            <img
-              src={p.image}
-              alt={p.alt ?? p.title}
-              class="w-full aspect-square lg:aspect-video object-cover rounded"
-            />
-          )}
-          <h2 class="text-2xl pt-3 font-semibold">{p.title}</h2>
-          <p class="truncate italic font-light">{p.description}</p>
-          {p.date && (
-            <time class="text-sm block text-right font-semibold my-2">
-              {new Date(p.date).toLocaleDateString()}
-            </time>
-          )}
-          <a href={`/blog/${slug}`} class="block">
-            <button class="w-full py-2 rounded-sm border-1 hover:shadow cursor-pointer block font-bold">
-              Read More
-            </button>
-          </a>
+{
+  posts.map((p) => {
+    const slug = toSlug(p);
+    return (
+      <a
+        href={`/blog/${slug}`}
+        class="tweet-card"
+        style="text-decoration: none; color: inherit; display: block;"
+      >
+        <div class="tweet-card-header">
+          <img src="/user-profile.jpg" alt="Avatar" class="tweet-avatar" />
+          <div class="tweet-content">
+            <div class="tweet-author-row">
+              <span class="tweet-author-name">Nanda Kresnatara</span>
+              <span class="tweet-author-handle">@taradevio</span>
+              {p.date && <span class="tweet-date">{formatDate(p.date)}</span>}
+            </div>
+
+            <div class="tweet-text">{p.description}</div>
+
+            <div class="tweet-link-preview">
+              {p.image && (
+                <img
+                  src={p.image}
+                  alt={p.alt ?? p.title}
+                  class="tweet-link-preview-image"
+                />
+              )}
+              <div class="tweet-link-preview-content">
+                <div class="tweet-link-preview-title">{p.title}</div>
+                <div class="tweet-link-preview-description">
+                  Read full article →
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      );
-    })
-  }
-</div>
+      </a>
+    );
+  })
+}
+
+{
+  posts.length === 0 && (
+    <div class="feed-empty">
+      <p>No blog posts yet. Stay tuned!</p>
+    </div>
+  )
+}

@@ -1,112 +1,46 @@
 ---
-import About from "./About.astro";
-import Projects from "./Projects.astro";
-import Index from "../pages/blog/index.astro";
+import ProjectCards from "./ProjectCards.astro";
+import CardBlog from "./CardBlog.astro";
 ---
 
-<div id="main-content" class="transition-all duration-300">
-  <section id="home" class="my-5">
-    <About />
-    <Projects />
+<div id="twitter-feed" class="twitter-feed">
+  <!-- Projects Tab -->
+  <section id="projects-feed" class="feed-section active">
+    <ProjectCards />
   </section>
 
-  <section id="projects" class="my-5 hidden">
-    <Projects />
-  </section>
-
-  <section id="resume" class="my-5 hidden">
-    <h1 class="text-3xl font-bold mb-3">Resume</h1>
-    <p class="text-zinc-400">This section contains your resume</p>
-  </section>
-
-  <section id="contact" class="my-5 hidden">
-    <h1 class="text-3xl font-bold mb-3">Contact</h1>
-    <p class="text-zinc-400">Let's get in touch!</p>
-  </section>
-
-  <section id="blog" class="my-5 hidden">
-    <h1 class="text-3xl font-bold mb-3">Blog</h1>
-    <Index />
+  <!-- Blogs Tab -->
+  <section id="blogs-feed" class="feed-section">
+    <CardBlog />
   </section>
 </div>
 
-<!-- <script is:inline>
-  if (typeof window !== "undefined") {
-    const all = document.querySelectorAll("#main-content > section");
-
-    const show = (id) => {
-      all.forEach((s) => s.classList.add("hidden"));
-      const el = document.getElementById(id);
-      if (el) el.classList.remove("hidden");
-    };
-
-    window.addEventListener("page-change", (e) => show(e.detail));
-  }
-</script> -->
-
-
-<!-- <script is:inline>
-  if (typeof window !== "undefined") {
-    const all = document.querySelectorAll("#main-content > section");
-
-    const show = (id) => {
-      all.forEach((s) => s.classList.add("hidden"));
-      const el = document.querySelector(`#main-content > section#${CSS.escape(id)}`);
-      if (el) {
-        el.classList.remove("hidden");
-        history.replaceState(null, "", `#${id}`); // sinkronkan URL
-      }
-    };
-
-    // terima event dari nav/footer SPA
-    window.addEventListener("page-change", (e) => show(e.detail));
-
-    // 1) saat pertama kali halaman home kebuka
-    document.addEventListener("DOMContentLoaded", () => {
-      const first = location.hash.slice(1) || "home";
-      show(first);
-    });
-
-    // 2) kalau hash berubah (mis. datang dari /#blog, atau back/forward)
-    window.addEventListener("hashchange", () => {
-      const h = location.hash.slice(1);
-      if (h) show(h);
-    });
-  }
-</script> -->
-
-
 <script is:inline>
   if (typeof window !== "undefined") {
-    const all = document.querySelectorAll("#main-content > section");
+    const projectsFeed = document.getElementById("projects-feed");
+    const blogsFeed = document.getElementById("blogs-feed");
 
-    const show = (id) => {
-      all.forEach((s) => s.classList.add("hidden"));
-      const el = document.querySelector(`#main-content > section#${CSS.escape(id)}`);
-      if (el) {
-        el.classList.remove("hidden");
-        if (id === "home") {
-          // biar gak muncul #home
-          history.replaceState(null, "", "/");
-        } else {
-          history.replaceState(null, "", `#${id}`);
-        }
+    const showTab = (tabName) => {
+      // Hide all feeds
+      projectsFeed?.classList.remove("active");
+      blogsFeed?.classList.remove("active");
+
+      // Show selected feed
+      if (tabName === "projects") {
+        projectsFeed?.classList.add("active");
+      } else if (tabName === "blogs") {
+        blogsFeed?.classList.add("active");
       }
     };
 
-    // terima event dari nav/footer SPA
-    window.addEventListener("page-change", (e) => show(e.detail));
-
-    // saat pertama kali halaman home kebuka
-    document.addEventListener("DOMContentLoaded", () => {
-      const first = location.hash.slice(1) || "home";
-      show(first);
+    // Listen for tab changes
+    window.addEventListener("tab-change", (e) => {
+      showTab(e.detail);
     });
 
-    // kalau hash berubah (mis. datang dari /#blog, atau back/forward)
-    window.addEventListener("hashchange", () => {
-      const h = location.hash.slice(1);
-      if (h) show(h);
+    // Initialize with projects tab
+    document.addEventListener("DOMContentLoaded", () => {
+      showTab("projects");
     });
   }
 </script>

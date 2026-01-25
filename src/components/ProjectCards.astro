@@ -1,23 +1,56 @@
 ---
-import project from '../data/project.json';
-const projectContent = project.projects;
+import client from "../../tina/__generated__/client";
+
+const resp = await client.queries.projectConnection();
+const projectContent = (resp.data.projectConnection?.edges ?? [])
+  .map((e) => {
+    const node = e?.node;
+    if (!node) return null;
+    return {
+      title: node.title,
+      description: node.description,
+      stack: node.stack ?? [],
+      link: node.link,
+      slug: `/projects/${node._sys.filename}`,
+    };
+  })
+  .filter((n): n is NonNullable<typeof n> => n !== null);
+
+// Format date helper
+const formatDate = () => {
+  const now = new Date();
+  return now.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+};
 ---
 
+{
+  projectContent.map(({ title, description, stack, link, slug }) => (
+    <a
+      href={slug}
+      class="tweet-card"
+      style="text-decoration: none; color: inherit; display: block;"
+    >
+      <div class="tweet-card-header">
+        <img src="/user-profile.jpg" alt="Avatar" class="tweet-avatar" />
+        <div class="tweet-content">
+          <div class="tweet-author-row">
+            <span class="tweet-author-name">Nanda Kresnatara</span>
+            <span class="tweet-author-handle">@taradevio</span>
+            <span class="tweet-date">{formatDate()}</span>
+          </div>
 
-{projectContent.map(({title, description, stack, link}) =>
-    <div class="border-2 border-[#27272a] bg-[#18181b] rounded-2xl w-[350px] mx-auto md:mx-0 py-2 px-3 mb-5 md:mb-0">
-         <a href={link} target="_blank">
-            <div class="flex justify-between">
-            <h3 class="text-lg font-semibold text-[#fafafa]">{title}</h3>
-            <img src="/link.svg" alt="external link" />
+          <div class="tweet-text">
+            <div class="tweet-title">{title}</div>
+            {description}
+          </div>
+
+          <div class="tweet-tags">
+            {stack.map((item) => (
+              <span class="tweet-tag">{item}</span>
+            ))}
+          </div>
         </div>
-         </a>
-        <p class="my-3 text-[#a1a1aa]">{description}</p>
-        <div class="text-[#a1a1aa] inline-flex text-center mx-auto w-full gap-3 flex-wrap">
-            {stack.map((item) =>
-                <span class="border-1 border-[#27272a] py-1 px-2 rounded-lg">{item}</span>
-            )}
-        </div> 
-    </div>
-)}
-
+      </div>
+    </a>
+  ))
+}

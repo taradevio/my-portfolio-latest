@@ -2,32 +2,27 @@
 
 ---
 
-<div class="border-1 absolute top-20 left-15 w-50 pr-10 pl-10 pb-10 hidden lg:block">
-  <aside>
-    <div>
-      <h2 class="text-xl text-center font-semibold my-3">Menu</h2>
-      <nav>
-        <ul id="nav-list" class="text-md grid gap-3">
-          <li class="cursor-pointer w-fit" data-page="home">Home</li>
-          <!-- <li class="cursor-pointer w-fit" data-page="projects">Projects</li> -->
-          <li class="cursor-pointer w-fit" data-page="resume">Resume</li>
-          <li class="cursor-pointer w-fit" data-page="sandbox">Sandbox</li>
-          <li class="cursor-pointer w-fit" data-page="blog">Blog</li>
-        </ul>
-      </nav>
-    </div>
-  </aside>
-</div>
+<nav class="twitter-tabs" id="twitter-tabs">
+  <button class="twitter-tab active" data-tab="projects"> Projects </button>
+  <button class="twitter-tab" data-tab="blogs"> Blogs </button>
+</nav>
 
 <script is:inline>
   if (typeof window !== "undefined") {
     window.addEventListener("DOMContentLoaded", () => {
-      document.querySelectorAll("#nav-list [data-page]").forEach((item) => {
-        item.addEventListener("click", () => {
-          const page = item.dataset.page;
-          // kirim event global ke MainContent
+      const tabs = document.querySelectorAll("#twitter-tabs .twitter-tab");
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          // Remove active from all tabs
+          tabs.forEach((t) => t.classList.remove("active"));
+          // Add active to clicked tab
+          tab.classList.add("active");
+
+          // Get tab name and dispatch event
+          const tabName = tab.dataset.tab;
           window.dispatchEvent(
-            new CustomEvent("page-change", { detail: page })
+            new CustomEvent("tab-change", { detail: tabName }),
           );
         });
       });
