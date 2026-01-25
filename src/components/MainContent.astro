@@ -21,36 +21,63 @@ import CardBlog from "./CardBlog.astro";
   </section>
 </div>
 
-<script is:inline>
+<script>
+  import { gsap } from "gsap";
+
   if (typeof window !== "undefined") {
     const projectsFeed = document.getElementById("projects-feed");
     const experienceFeed = document.getElementById("experience-feed");
     const blogsFeed = document.getElementById("blogs-feed");
 
-    const showTab = (tabName) => {
+    const animateFeed = (feedSelector: string) => {
+      const cards = document.querySelectorAll(`${feedSelector} .tweet-card`);
+      if (cards.length > 0) {
+        gsap.fromTo(
+          cards,
+          { opacity: 0, y: 15 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            stagger: 0.03, // Barely noticeable stagger for premium feel
+            ease: "power2.out",
+            overwrite: true,
+          },
+        );
+      }
+    };
+
+    const showTab = (tabName: string, animate = true) => {
       // Hide all feeds
       projectsFeed?.classList.remove("active");
       experienceFeed?.classList.remove("active");
       blogsFeed?.classList.remove("active");
 
       // Show selected feed
+      let activeFeedId = "";
       if (tabName === "projects") {
         projectsFeed?.classList.add("active");
+        activeFeedId = "#projects-feed";
       } else if (tabName === "experience") {
         experienceFeed?.classList.add("active");
+        activeFeedId = "#experience-feed";
       } else if (tabName === "blogs") {
         blogsFeed?.classList.add("active");
+        activeFeedId = "#blogs-feed";
+      }
+
+      if (animate && activeFeedId) {
+        // Use a tiny timeout to ensure display: block is applied
+        setTimeout(() => animateFeed(activeFeedId), 10);
       }
     };
 
     // Listen for tab changes
-    window.addEventListener("tab-change", (e) => {
+    window.addEventListener("tab-change", (e: any) => {
       showTab(e.detail);
     });
 
     // Initialize with projects tab
-    document.addEventListener("DOMContentLoaded", () => {
-      showTab("projects");
-    });
+    showTab("projects", true);
   }
 </script>

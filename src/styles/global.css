@@ -66,8 +66,13 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: initial;
   overflow-y: scroll;
+}
+
+.gsap-reveal {
+  opacity: 0;
+  transform: translateY(20px);
 }
 
 body {

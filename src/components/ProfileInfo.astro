@@ -90,7 +90,9 @@ const experienceCount =
   </div>
 </div>
 
-<script is:inline>
+<script>
+  import { gsap } from "gsap";
+
   // Theme Toggle Script
   (function () {
     const toggle = document.getElementById("theme-toggle");
@@ -106,7 +108,7 @@ const experienceCount =
     };
 
     // Apply theme
-    const applyTheme = (theme) => {
+    const applyTheme = (theme: string) => {
       html.setAttribute("data-theme", theme);
       localStorage.setItem("theme", theme);
     };
@@ -130,5 +132,40 @@ const experienceCount =
           applyTheme(e.matches ? "dark" : "light");
         }
       });
+  })();
+
+  // Bocchi Panic Logic
+  (function () {
+    const avatar = document.querySelector(".twitter-avatar");
+    if (avatar) {
+      let glitchTimeline: gsap.core.Timeline | null = null;
+
+      avatar.addEventListener("mouseenter", () => {
+        glitchTimeline = gsap.timeline({ repeat: -1 });
+        glitchTimeline
+          .to(avatar, { x: 1, y: -1, duration: 0.05 })
+          .to(avatar, { x: -1, y: 1, duration: 0.05 })
+          .to(avatar, { x: 0, y: 0, duration: 0.05 })
+          .to(avatar, { x: -2, y: 0, duration: 0.05 })
+          .to(avatar, { x: 2, y: 1, duration: 0.05 })
+          .to(avatar, { x: 0, y: 0, duration: 0.05 });
+
+        gsap.to(avatar, { scale: 1.05, duration: 0.3, ease: "power2.out" });
+      });
+
+      avatar.addEventListener("mouseleave", () => {
+        if (glitchTimeline) {
+          glitchTimeline.kill();
+          glitchTimeline = null;
+        }
+        gsap.to(avatar, {
+          x: 0,
+          y: 0,
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.inOut",
+        });
+      });
+    }
   })();
 </script>

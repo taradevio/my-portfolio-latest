@@ -60,6 +60,15 @@ const pluralize = (count: number, singular: string, plural: string) =>
 </div>
 
 <script is:inline define:vars={{ counts }}>
+  window.kessokuCounts = counts;
+</script>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
   (function () {
     const toggle = document.getElementById("mobile-theme-toggle");
     const headerInfo = document.getElementById("mobile-header-info");
@@ -77,8 +86,13 @@ const pluralize = (count: number, singular: string, plural: string) =>
     }
 
     // Tab based count display
-    window.addEventListener("tab-change", (e) => {
+    window.addEventListener("tab-change", (e: any) => {
       const tab = e.detail;
+      const counts = (window as any).kessokuCounts || {
+        projects: 0,
+        experience: 0,
+        blogs: 0,
+      };
       let count = 0;
       let label = "";
 
@@ -98,16 +112,18 @@ const pluralize = (count: number, singular: string, plural: string) =>
       }
     });
 
-    // Scroll reveal
-    window.addEventListener("scroll", () => {
-      // Threshold is usually when the avatar/profile name is scrolled past
-      // Around 150px-200px
-      const threshold = 180;
-      if (window.scrollY > threshold) {
-        headerInfo.style.opacity = "1";
-      } else {
-        headerInfo.style.opacity = "0";
-      }
-    });
+    // Scroll reveal with GSAP
+    if (headerInfo) {
+      gsap.to(headerInfo, {
+        opacity: 1,
+        y: 0,
+        duration: 0.3,
+        scrollTrigger: {
+          trigger: "body",
+          start: "150 top", // Start reveal after 150px
+          toggleActions: "play none none reverse",
+        },
+      });
+    }
   })();
 </script>
