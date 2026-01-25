@@ -131,6 +131,68 @@ export default defineConfig({
           },
         ],
       },
+      {
+        name: "experience",
+        label: "Experience",
+        path: "content/experience",
+        fields: [
+          {
+            type: "string",
+            name: "title",
+            label: "Role / Title",
+            isTitle: true,
+            required: true,
+          },
+          {
+            type: "string",
+            name: "company",
+            label: "Company",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "location",
+            label: "Location",
+          },
+          {
+            type: "datetime",
+            name: "startDate",
+            label: "Start Date",
+            required: true,
+          },
+          {
+            type: "datetime",
+            name: "endDate",
+            label: "End Date",
+          },
+          {
+            type: "boolean",
+            name: "isCurrent",
+            label: "Current Position?",
+          },
+          {
+            type: "string",
+            name: "description",
+            label: "Short Description",
+            required: true,
+            ui: {
+              component: "textarea",
+            },
+          },
+          {
+            type: "string",
+            name: "stack",
+            label: "Tech Stack",
+            list: true,
+          },
+          {
+            type: "rich-text",
+            name: "body",
+            label: "Body",
+            isBody: true,
+          },
+        ],
+      },
     ],
   },
 });

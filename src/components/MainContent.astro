@@ -1,5 +1,6 @@
 ---
 import ProjectCards from "./ProjectCards.astro";
+import ExperienceCards from "./ExperienceCards.astro";
 import CardBlog from "./CardBlog.astro";
 ---
 
@@ -7,6 +8,11 @@ import CardBlog from "./CardBlog.astro";
   <!-- Projects Tab -->
   <section id="projects-feed" class="feed-section active">
     <ProjectCards />
+  </section>
+
+  <!-- Experience Tab -->
+  <section id="experience-feed" class="feed-section">
+    <ExperienceCards />
   </section>
 
   <!-- Blogs Tab -->
@@ -18,16 +24,20 @@ import CardBlog from "./CardBlog.astro";
 <script is:inline>
   if (typeof window !== "undefined") {
     const projectsFeed = document.getElementById("projects-feed");
+    const experienceFeed = document.getElementById("experience-feed");
     const blogsFeed = document.getElementById("blogs-feed");
 
     const showTab = (tabName) => {
       // Hide all feeds
       projectsFeed?.classList.remove("active");
+      experienceFeed?.classList.remove("active");
       blogsFeed?.classList.remove("active");
 
       // Show selected feed
       if (tabName === "projects") {
         projectsFeed?.classList.add("active");
+      } else if (tabName === "experience") {
+        experienceFeed?.classList.add("active");
       } else if (tabName === "blogs") {
         blogsFeed?.classList.add("active");
       }

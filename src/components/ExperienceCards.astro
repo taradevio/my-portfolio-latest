@@ -1,0 +1,122 @@
+---
+import client from "../../tina/__generated__/client";
+import { CustomMarkdown } from "./CustomMarkdown";
+
+const resp = await (client.queries as any).experienceConnection();
+const experiences = (resp.data.experienceConnection?.edges ?? [])
+  .map((e: any) => e?.node ?? null)
+  .filter((n: any): n is NonNullable<typeof n> => n !== null)
+  .sort(
+    (a: any, b: any) =>
+      new Date(b.startDate).getTime() - new Date(a.startDate).getTime(),
+  );
+
+// Format date range helper
+const formatDateRange = (
+  start: string,
+  end?: string | null,
+  isCurrent?: boolean | null,
+) => {
+  const options: Intl.DateTimeFormatOptions = {
+    month: "short",
+    year: "numeric",
+  };
+  const startDate = new Date(start).toLocaleDateString("en-US", options);
+
+  if (isCurrent) {
+    return `${startDate} - Present`;
+  }
+
+  if (end) {
+    const endDate = new Date(end).toLocaleDateString("en-US", options);
+    return `${startDate} - ${endDate}`;
+  }
+
+  return startDate;
+};
+---
+
+{
+  experiences.map((exp: any) => (
+    <div class="tweet-card">
+      <div class="tweet-card-header">
+        <img src="/user-profile.jpg" alt="Avatar" class="tweet-avatar" />
+        <div class="tweet-content">
+          <div class="tweet-author-row">
+            <span class="tweet-author-name">Nanda Kresnatara</span>
+            <span class="tweet-author-handle">@taradevio</span>
+            <span class="tweet-date">
+              {formatDateRange(exp.startDate, exp.endDate, exp.isCurrent)}
+            </span>
+          </div>
+
+          <div class="tweet-text">
+            <div class="tweet-title" style="margin-bottom: 2px;">
+              {exp.title}
+            </div>
+            <div
+              class="tweet-company"
+              style="font-weight: 600; font-size: 0.9rem; color: var(--twitter-dim-text);"
+            >
+              {exp.company}
+              {exp.location ? ` • ${exp.location}` : ""}
+            </div>
+
+            {exp.body && (
+              <div class="experience-body" style="margin-top: 8px;">
+                <CustomMarkdown content={exp.body} />
+              </div>
+            )}
+          </div>
+
+          {exp.stack && exp.stack.length > 0 && (
+            <div class="tweet-tags" style="margin-top: 10px;">
+              {exp.stack.map((item: string) => (
+                <span class="tweet-tag">{item}</span>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  ))
+}
+
+{
+  experiences.length === 0 && (
+    <div class="tweet-card">
+      <div class="feed-empty">
+        <p>Under Development</p>
+      </div>
+    </div>
+  )
+}
+
+<style>
+  .experience-body :global(p) {
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 8px !important;
+    font-family: inherit !important;
+  }
+
+  .experience-body :global(ul),
+  .experience-body :global(ol) {
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 12px !important;
+    font-family: inherit !important;
+    padding-left: 1.5rem !important;
+  }
+
+  .experience-body :global(li) {
+    margin-bottom: 4px !important;
+  }
+
+  /* Override the Georgia font if it's too formal for the tweet look */
+  .experience-body :global(*) {
+    font-family:
+      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+      sans-serif !important;
+  }
+</style>

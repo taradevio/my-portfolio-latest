@@ -3,28 +3,45 @@
 ---
 
 <nav class="twitter-tabs" id="twitter-tabs">
-  <button class="twitter-tab active" data-tab="projects"> Projects </button>
-  <button class="twitter-tab" data-tab="blogs"> Blogs </button>
+  <button
+    class="twitter-tab active"
+    data-tab="projects"
+    style="--active-tab-color: var(--kessoku-pink)"
+  >
+    Projects
+  </button>
+  <button
+    class="twitter-tab"
+    data-tab="experience"
+    style="--active-tab-color: var(--kessoku-yellow)"
+  >
+    Experience
+  </button>
+  <button
+    class="twitter-tab"
+    data-tab="blogs"
+    style="--active-tab-color: var(--kessoku-blue)"
+  >
+    Blogs
+  </button>
 </nav>
 
 <script is:inline>
   if (typeof window !== "undefined") {
-    window.addEventListener("DOMContentLoaded", () => {
-      const tabs = document.querySelectorAll("#twitter-tabs .twitter-tab");
+    const tabs = document.querySelectorAll(".twitter-tab");
 
-      tabs.forEach((tab) => {
-        tab.addEventListener("click", () => {
-          // Remove active from all tabs
-          tabs.forEach((t) => t.classList.remove("active"));
-          // Add active to clicked tab
-          tab.classList.add("active");
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        // Remove active class from all tabs
+        tabs.forEach((t) => t.classList.remove("active"));
+        // Add active class to clicked tab
+        tab.classList.add("active");
 
-          // Get tab name and dispatch event
-          const tabName = tab.dataset.tab;
-          window.dispatchEvent(
-            new CustomEvent("tab-change", { detail: tabName }),
-          );
-        });
+        // Dispatch custom event for content switching
+        const tabName = tab.getAttribute("data-tab");
+        window.dispatchEvent(
+          new CustomEvent("tab-change", { detail: tabName }),
+        );
       });
     });
   }

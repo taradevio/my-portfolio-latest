@@ -1,17 +1,17 @@
 ---
-import project from "../data/project.json";
 import client from "../../tina/__generated__/client";
 
-const projectCount = project.projects.length;
+// Fetch counts dynamically from Tina CMS
+const [projectResp, postResp, experienceResp] = await Promise.all([
+  client.queries.projectConnection(),
+  client.queries.postConnection(),
+  (client.queries as any).experienceConnection(),
+]);
 
-// Get blog count
-let blogCount = 0;
-try {
-  const resp = await client.queries.postConnection();
-  blogCount = resp.data.postConnection?.edges?.length ?? 0;
-} catch (e) {
-  blogCount = 0;
-}
+const projectCount = projectResp.data.projectConnection?.totalCount ?? 0;
+const blogCount = postResp.data.postConnection?.totalCount ?? 0;
+const experienceCount =
+  experienceResp.data.experienceConnection?.totalCount ?? 0;
 ---
 
 <div class="twitter-profile-info">
@@ -20,7 +20,11 @@ try {
       <h1 class="twitter-display-name">Nanda Kresnatara</h1>
       <p class="twitter-handle">@taradevio</p>
     </div>
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+    <button
+      class="theme-toggle desktop-only"
+      id="theme-toggle"
+      aria-label="Toggle theme"
+    >
       <svg
         class="sun-icon"
         viewBox="0 0 24 24"
@@ -43,9 +47,7 @@ try {
   </div>
 
   <p class="twitter-bio">
-    Frontend Developer with a background in English Literature. Building
-    functional and user-friendly web experiences, turning ideas into reality
-    through code.
+    Full-stack developer with a sprinkle of AI engineering
   </p>
 
   <div class="twitter-meta">
@@ -74,10 +76,16 @@ try {
 
   <div class="twitter-stats">
     <span class="twitter-stat">
-      <span class="twitter-stat-number">{projectCount}</span> Projects
+      <span class="twitter-stat-number">{projectCount}</span>
+      {projectCount === 1 ? "Project" : "Projects"}
     </span>
     <span class="twitter-stat">
-      <span class="twitter-stat-number">{blogCount}</span> Blog Posts
+      <span class="twitter-stat-number">{experienceCount}</span>
+      {experienceCount === 1 ? "Experience" : "Experiences"}
+    </span>
+    <span class="twitter-stat">
+      <span class="twitter-stat-number">{blogCount}</span>
+      {blogCount === 1 ? "Blog Post" : "Blog Posts"}
     </span>
   </div>
 </div>

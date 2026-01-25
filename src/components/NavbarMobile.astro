@@ -1,12 +1,37 @@
 ---
+import client from "../../tina/__generated__/client";
 
+const [projectResp, postResp, experienceResp] = await Promise.all([
+  client.queries.projectConnection(),
+  client.queries.postConnection(),
+  (client.queries as any).experienceConnection(),
+]);
+
+const counts = {
+  projects: projectResp.data.projectConnection?.totalCount ?? 0,
+  blogs: postResp.data.postConnection?.totalCount ?? 0,
+  experience: experienceResp.data.experienceConnection?.totalCount ?? 0,
+};
+
+const pluralize = (count: number, singular: string, plural: string) =>
+  `${count} ${count === 1 ? singular : plural}`;
 ---
 
 <!-- Mobile Header -->
 <div class="mobile-header" id="mobile-header">
-  <div>
+  <div
+    class="mobile-header-info"
+    id="mobile-header-info"
+    style="opacity: 0; transition: opacity 0.2s ease;"
+  >
     <div class="mobile-header-title">Nanda Kresnatara</div>
-    <div class="mobile-header-subtitle">@taradevio</div>
+    <div
+      class="mobile-header-subtitle"
+      id="mobile-header-count"
+      style="color: var(--kessoku-pink); font-weight: 500;"
+    >
+      {pluralize(counts.projects, "project", "projects")}
+    </div>
   </div>
   <button
     class="theme-toggle"
@@ -34,12 +59,14 @@
   </button>
 </div>
 
-<script is:inline>
-  // Mobile theme toggle (syncs with main toggle)
+<script is:inline define:vars={{ counts }}>
   (function () {
     const toggle = document.getElementById("mobile-theme-toggle");
+    const headerInfo = document.getElementById("mobile-header-info");
+    const countDisplay = document.getElementById("mobile-header-count");
     const html = document.documentElement;
 
+    // Theme toggle
     if (toggle) {
       toggle.addEventListener("click", () => {
         const current = html.getAttribute("data-theme");
@@ -48,5 +75,39 @@
         localStorage.setItem("theme", newTheme);
       });
     }
+
+    // Tab based count display
+    window.addEventListener("tab-change", (e) => {
+      const tab = e.detail;
+      let count = 0;
+      let label = "";
+
+      if (tab === "projects") {
+        count = counts.projects;
+        label = count === 1 ? "project" : "projects";
+      } else if (tab === "experience") {
+        count = counts.experience;
+        label = count === 1 ? "experience" : "experiences";
+      } else if (tab === "blogs") {
+        count = counts.blogs;
+        label = count === 1 ? "post" : "posts";
+      }
+
+      if (countDisplay) {
+        countDisplay.textContent = `${count} ${label}`;
+      }
+    });
+
+    // Scroll reveal
+    window.addEventListener("scroll", () => {
+      // Threshold is usually when the avatar/profile name is scrolled past
+      // Around 150px-200px
+      const threshold = 180;
+      if (window.scrollY > threshold) {
+        headerInfo.style.opacity = "1";
+      } else {
+        headerInfo.style.opacity = "0";
+      }
+    });
   })();
 </script>

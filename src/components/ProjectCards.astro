@@ -24,7 +24,7 @@ const formatDate = () => {
 ---
 
 {
-  projectContent.map(({ title, description, stack, link, slug }) => (
+  projectContent.map(({ title, description, stack, slug }) => (
     <a
       href={slug}
       class="tweet-card"
@@ -53,4 +53,14 @@ const formatDate = () => {
       </div>
     </a>
   ))
+}
+
+{
+  projectContent.length === 0 && (
+    <div class="tweet-card">
+      <div class="feed-empty">
+        <p>Under Development</p>
+      </div>
+    </div>
+  )
 }
