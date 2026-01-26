@@ -61,14 +61,14 @@ const themes = [
 ---
 
 <div class="theme-selector-container">
-  <button class="theme-trigger" id="theme-trigger" aria-label="Select theme">
+  <button class="theme-trigger" aria-label="Select theme">
     <Palette size={20} class="theme-icon" />
     <svg viewBox="0 0 24 24" class="chevron-icon">
       <path d="M7 10l5 5 5-5H7z" fill="currentColor"></path>
     </svg>
   </button>
 
-  <div class="theme-dropdown" id="theme-dropdown">
+  <div class="theme-dropdown">
     <div class="theme-list">
       {
         themes.map((theme) => (
@@ -236,39 +236,52 @@ const themes = [
 
 <script>
   function initThemeSwitcher() {
-    const trigger = document.getElementById("theme-trigger");
-    const dropdown = document.getElementById("theme-dropdown");
-    const items = document.querySelectorAll(".theme-item");
+    const containers = document.querySelectorAll(".theme-selector-container");
     const html = document.documentElement;
 
-    // Toggle dropdown
-    trigger?.addEventListener("click", (e) => {
-      e.stopPropagation();
-      dropdown?.classList.toggle("show");
-    });
+    containers.forEach((container) => {
+      const trigger = container.querySelector(".theme-trigger");
+      const dropdown = container.querySelector(".theme-dropdown");
+      const items = container.querySelectorAll(".theme-item");
 
-    // Close on click outside
-    document.addEventListener("click", () => {
-      dropdown?.classList.remove("show");
-    });
+      // Toggle dropdown
+      trigger?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        // Close all other dropdowns
+        document.querySelectorAll(".theme-dropdown").forEach((d) => {
+          if (d !== dropdown) d.classList.remove("show");
+        });
+        dropdown?.classList.toggle("show");
+      });
 
-    // Theme switching
-    items.forEach((item) => {
-      item.addEventListener("click", () => {
-        const theme = item.getAttribute("data-theme-id");
-        if (theme) {
-          html.setAttribute("data-theme", theme);
-          localStorage.setItem("theme", theme);
+      // Theme switching
+      items.forEach((item) => {
+        item.addEventListener("click", () => {
+          const theme = item.getAttribute("data-theme-id");
+          if (theme) {
+            html.setAttribute("data-theme", theme);
+            localStorage.setItem("theme", theme);
 
-          // Re-trigger global styles if needed
-          window.dispatchEvent(
-            new CustomEvent("theme-changed", { detail: theme }),
-          );
-        }
+            // Re-trigger global styles if needed
+            window.dispatchEvent(
+              new CustomEvent("theme-changed", { detail: theme }),
+            );
+          }
+        });
       });
     });
 
-    // Set initial active state visual if needed
+    // Close on click outside (only once)
+    if (!(window as any).themeCloseHandlerAdded) {
+      document.addEventListener("click", () => {
+        document.querySelectorAll(".theme-dropdown").forEach((d) => {
+          d.classList.remove("show");
+        });
+      });
+      (window as any).themeCloseHandlerAdded = true;
+    }
+
+    // Set initial theme
     const currentTheme = localStorage.getItem("theme") || "bocchi";
     html.setAttribute("data-theme", currentTheme);
   }
