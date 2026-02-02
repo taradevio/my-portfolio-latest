@@ -1,12 +1,15 @@
 ---
 title: Astro + TinaCMS on Cloudflare Pages
+image: /btr.png
+alt: Astro and TinaCMS
+description: Configuration on Astro and TinaCMS
 date: 2026-02-02T00:00:00.000Z
 author: Nanda
 tags:
   - astro
   - tinacms
   - cloudflare pages
-caption: ''
+caption: Astro and TinaCMS
 ---
 
 ## Project Setup
