@@ -45,7 +45,7 @@ Examples:
 * Survey results
 * Class schedule
 
-### Unstructured data![](/saad-chaudhry-cYpqYxGeqts-unsplash.jpg)
+### Unstructured data![Example of unstructured data](/saad-chaudhry-cYpqYxGeqts-unsplash.jpg "Image by Saad Chaudhry")
 
 Unstructured data has no predefined format.
 
