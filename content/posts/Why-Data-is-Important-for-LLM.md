@@ -118,7 +118,7 @@ The model cleaned up some parts, especially the merchant name, but:
 
 Here's another example:
 
-### Case 2: Dirty Receipt![](/dirty-receipt.jpg)
+### Case 2: Dirty Receipt![Dirty Receipt](/dirty-receipt.jpg "An example of a dirty receipt")
 
 Now what about a noisy, dirty receipt? Here's what I got:
 
