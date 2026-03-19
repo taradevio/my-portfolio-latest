@@ -168,7 +168,7 @@ If the OCR output is already corrupted/broken:
 
 ## Conclusion
 
-It is important to note that what we feed into LLMs will affect its output. At every level—prompting, preprocessing, or model input—data quality directly shapes the output.
+It is important to note that what we feed into LLMs, —prompting, preprocessing, or model input—data quality directly shapes the output.
 
 Or, as the principle puts it:
 
