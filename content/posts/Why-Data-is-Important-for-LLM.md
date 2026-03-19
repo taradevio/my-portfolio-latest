@@ -12,7 +12,7 @@ tags:
 caption: 'Garbage In, Garbage Out'
 ---
 
-I had always thought that I could just feed any data into AI and expected a good output.  One tiny example that I sometimes still do is less context when prompting. I remember asking:
+I had always thought that I could just feed any data into AI and expect a good output.  One tiny example that I sometimes still do is less context when prompting. I remember asking:
 
 > Create me a set of schedule to support my fundamental daily learning on Software and AI Engineer
 
