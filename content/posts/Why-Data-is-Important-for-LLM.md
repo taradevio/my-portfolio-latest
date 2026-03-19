@@ -5,12 +5,16 @@ alt: A minimal abstract split composition showing the importance of data for AI
 description: 'Garbage In, Garbage Out'
 date: 2026-03-19T00:00:00.000Z
 author: Nanda Kresnatara
+tags:
+  - ai
+  - learning
+  - machine learning
 caption: 'Garbage In, Garbage Out'
 ---
 
-I had always thought that I could just feed any data into AI and expected a good output.  One tiny example that I sometimes still do is less context when prompting. I remember asking: 
+I had always thought that I could just feed any data into AI and expected a good output.  One tiny example that I sometimes still do is less context when prompting. I remember asking:
 
-> "Create me a set of schedule to support my fundamental daily learning on Software and AI Engineer". 
+> "Create me a set of schedule to support my fundamental daily learning on Software and AI Engineer".
 
 It then created me schedules. It technically worked..., but not quite! It gave me an 8-hour straight schedule with no breaks. What I actually wanted was:
 
