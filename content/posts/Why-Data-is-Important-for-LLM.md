@@ -33,7 +33,7 @@ Speaking of data, I think we also need to understand what data that goes in and 
 * Unstructured data
 * Semi-structured data
 
-### Structured data![](/christine-sandu-yo5wIVapll0-unsplash.jpg)
+### Structured data![Example of structured data](/christine-sandu-yo5wIVapll0-unsplash.jpg "Image by Christine Sandu")
 
 Structured data has a fixed, predefined format.
 
