@@ -2,7 +2,7 @@
 title: Why Data is Important for LLM
 image: /gigo.webp
 alt: A minimal abstract split composition showing the importance of data for AI
-description: 'Garbage In, Garbage Out'
+description: ''
 date: 2026-03-19T00:00:00.000Z
 author: Nanda Kresnatara
 tags:
