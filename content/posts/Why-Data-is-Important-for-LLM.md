@@ -87,7 +87,7 @@ I don't think we will achieve what we have today if they were trained on poor-qu
 
 Currently, I’m building a project that uses OCR + LLM to extract and parse data from shopping receipts into a backend system, which is then visualized on a dashboard. I did a lot of trial and error, especially on receipts that are not in good conditions. Here's the first example:
 
-### &#xA;Case 1: Blurry Receipt![Blurry Receipt](/blurred-receipt.jpg)
+### &#xA;Case 1: Blurry Receipt![Blurry Receipt](/blurred-receipt.jpg "An example of a blurry receipt")
 
 In the above example, two critical things are blurry: date and item name. I used RapidOCR to scan the receipt and here's what I got:
 
