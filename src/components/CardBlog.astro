@@ -8,7 +8,12 @@ const [resp, globalResp] = await Promise.all([
 
 const posts = (resp.data.postConnection?.edges ?? [])
   .map((e) => e?.node ?? null)
-  .filter((n): n is NonNullable<typeof n> => n !== null);
+  .filter((n): n is NonNullable<typeof n> => n !== null)
+  .sort((a, b) => {
+    const dateA = a.date ? new Date(a.date).getTime() : 0;
+    const dateB = b.date ? new Date(b.date).getTime() : 0;
+    return dateB - dateA;
+  });
 
 const globalData = globalResp.data.global;
 

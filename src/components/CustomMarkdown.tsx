@@ -49,8 +49,23 @@ export function CustomMarkdown({ content }: { content: any }) {
             "{props.children}"
           </blockquote>
         ),
+        code_block: (props: any) => (
+          <div className="my-6 rounded-xl border border-[var(--border-color)] overflow-hidden">
+            {props.lang && (
+              <div className="px-4 py-2 text-xs font-mono text-[var(--text-secondary)] border-b border-[var(--border-color)] bg-[var(--bg-tertiary)]">
+                {props.lang}
+              </div>
+            )}
+            <pre
+              className="overflow-x-auto p-4 m-0 text-sm leading-relaxed font-mono text-[var(--text-primary)]"
+              style={{ backgroundColor: "var(--bg-tertiary)" }}
+            >
+              <code>{props.value}</code>
+            </pre>
+          </div>
+        ),
         code: (props: any) => (
-          <code className="bg-[var(--bg-secondary)] px-1.5 py-0.5 rounded text-sm font-mono text-[var(--text-primary)]">
+          <code className="bg-[var(--bg-tertiary)] px-1.5 py-0.5 rounded text-sm font-mono text-[var(--text-primary)]">
             {props.children}
           </code>
         ),

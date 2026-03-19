@@ -15,22 +15,28 @@ const projectContent = (resp.data.projectConnection?.edges ?? [])
       description: node.description,
       stack: node.stack ?? [],
       link: node.link,
+      date: node.date,
       slug: `/projects/${node._sys.filename}`,
     };
   })
-  .filter((n): n is NonNullable<typeof n> => n !== null);
+  .filter((n): n is NonNullable<typeof n> => n !== null)
+  .sort((a, b) => {
+    const dateA = a.date ? new Date(a.date).getTime() : 0;
+    const dateB = b.date ? new Date(b.date).getTime() : 0;
+    return dateB - dateA;
+  });
 
 const globalData = globalResp.data.global;
 
 // Format date helper
-const formatDate = () => {
-  const now = new Date();
-  return now.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+const formatDate = (dateStr?: string | null) => {
+  const date = dateStr ? new Date(dateStr) : new Date();
+  return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
 };
 ---
 
 {
-  projectContent.map(({ title, description, stack, slug }) => (
+  projectContent.map(({ title, description, stack, slug, date }) => (
     <a
       href={slug}
       class="tweet-card"
@@ -46,7 +52,7 @@ const formatDate = () => {
           <div class="tweet-author-row">
             <span class="tweet-author-name">{globalData.name}</span>
             <span class="tweet-author-handle">{globalData.handle}</span>
-            <span class="tweet-date">{formatDate()}</span>
+            <span class="tweet-date">{formatDate(date)}</span>
           </div>
 
           <div class="tweet-text">
