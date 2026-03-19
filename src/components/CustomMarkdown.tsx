@@ -44,11 +44,14 @@ export function CustomMarkdown({ content }: { content: any }) {
           </ol>
         ),
         li: (props: any) => <li className="pl-2">{props.children}</li>,
-        blockquote: (props: any) => (
-          <blockquote className="border-l-[4px] border-[var(--twitter-blue)] pl-6 italic my-8 text-[20px] text-[var(--text-secondary)] font-[Georgia,serif] leading-relaxed">
-            "{props.children}"
-          </blockquote>
-        ),
+        blockquote: (props: any) => {
+          if (!props.children) return <blockquote />;
+          return (
+            <blockquote className="border-l-[4px] border-[var(--twitter-blue)] pl-6 italic my-8 text-[20px] text-[var(--text-secondary)] font-[Georgia,serif] leading-relaxed">
+              "{props.children}"
+            </blockquote>
+          );
+        },
         code_block: (props: any) => (
           <div className="my-6 rounded-xl border border-[var(--border-color)] overflow-hidden">
             {props.lang && (
