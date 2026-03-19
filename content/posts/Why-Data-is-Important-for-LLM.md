@@ -58,7 +58,7 @@ Examples:
 * Videos
 * Chat messages
 
-### Semi-structured data![](/thought-catalog-cAEQVM60PLI-unsplash.jpg)
+### Semi-structured data![Example of semi-structured data](/thought-catalog-cAEQVM60PLI-unsplash.jpg "Image by Thought Catalog")
 
 Semi-structured data sits somewhere in between.
 
