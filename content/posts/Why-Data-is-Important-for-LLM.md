@@ -14,7 +14,7 @@ caption: 'Garbage In, Garbage Out'
 
 I had always thought that I could just feed any data into AI and expected a good output.  One tiny example that I sometimes still do is less context when prompting. I remember asking:
 
-> "Create me a set of schedule to support my fundamental daily learning on Software and AI Engineer".
+> Create me a set of schedule to support my fundamental daily learning on Software and AI Engineer
 
 It then created me schedules. It technically worked..., but not quite! It gave me an 8-hour straight schedule with no breaks. What I actually wanted was:
 
@@ -152,7 +152,6 @@ Interestingly:
 
 * The date and time were reconstructed correctly
 * But item names and pricing details are inconsistent
-*
 
 The body (line items) is where things degrade the most.
 
