@@ -15,7 +15,7 @@ date: 2026-04-08T00:00:00.000Z
 
 ## Background
 
-When W was at a boarding house, W had this pile of receipts piling up inside my wallet. I was thinkin gof dumping them into the dustbin. However, I was thinking what if I store them somehwere else instead to track my monthly outcome. Now that an idea came up, I could just throw them to OpenClaw and connect it to my telegram, then it's all done. Even so, the token consumed by the LLM would be a huge issue and there was no way to continue with OpenClaw, so I thought of another alternative by using OCR. now, the LLM's role is just to parse what is processed by the OCR. so I proceeded with this idea
+When I was at a boarding house, I had this pile of receipts piling up inside my wallet. I was thinkin gof dumping them into the dustbin. However, I was thinking what if I store them somehwere else instead to track my monthly outcome. Now that an idea came up, I could just throw them to OpenClaw and connect it to my telegram, then it's all done. Even so, the token consumed by the LLM would be a huge issue and there was no way to continue with OpenClaw, so I thought of another alternative by using OCR. now, the LLM's role is just to parse what is processed by the OCR. so I proceeded with this idea
 
 ![a pile of receipts](/receipt-1.jpg "Pile of receipts")
 
@@ -33,7 +33,7 @@ i'm trying to solve my own problem where I can store any store's receipts and tr
 
 ## Challenges
 
-It is without doubt that there are challenges I faced during the development of this app. First, the receipt itself. Receipts come with different layouts and it is challenging for the ocr to match with the desired output. one receipt comes in, it may output what is desired, another different receipt layout comes in, and it may return missing information. Besides, receipts that are not in good conditions, such as blurry, torn, creased, or crumpled also contribute to bad OCR output. Finally, LLM. just because there's an LLM to parse, it doesn't mean the pipeline becomes easy. the LLM also requires parameters and prompt tuning to keep the output clean. 
+It is without doubt that there are challenges I faced during the development of this app. First, the receipt itself. Receipts come with different layouts and it is challenging for the ocr to match with the desired output. one receipt comes in, it may output what is desired, another different receipt layout comes in, and it may return missing information. Besides, receipts that are not in good conditions, such as blurry, torn, creased, or crumpled also contribute to bad OCR output. Finally, LLM. just because there's an LLM to parse, it doesn't mean the pipeline becomes easy. the LLM also requires parameters and prompt tuning to keep the output clean.
 
 ## Further enchancement
 
